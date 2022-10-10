@@ -14,12 +14,12 @@ const sexAnimalsCount = (animal) => {
 };
 
 function countAnimals(animal) {
-  if(animal === undefined) {
+  if (animal === undefined) {
     return qntAnimals;
   }
   if (Object.values(animal).length === 1) {
     return sexAnimalsCount;
   }
-};
+}
 
 module.exports = countAnimals;
