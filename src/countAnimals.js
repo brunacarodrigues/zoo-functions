@@ -1,25 +1,21 @@
-const { species } = require('../data/zoo_data');
-
-const qntAnimals = species.reduce((acc, specie) => {
-  acc[specie.name] = specie.residents.length;
-  return acc;
-}, {});
-
-const sexAnimalsCount = (animal) => {
-  const filterAnimals = species
-    .find((specie) => specie.name === animal.specie).residents;
-  const animals = filterAnimals
-    .reduce((acc, sexo) => ((sexo.sex === animal.sex) ? (acc + 1) : (acc)), 0);
-  return animals;
-};
+const data = require('../data/zoo_data');
 
 function countAnimals(animal) {
+  const totalAnimals = {};
   if (animal === undefined) {
-    return qntAnimals;
+    data.species.forEach((qntAnimals) => {
+      totalAnimals[qntAnimals.name] = qntAnimals.residents.length;
+    });
+    return totalAnimals;
   }
-  if (Object.values(animal).length === 1) {
-    return sexAnimalsCount;
+
+  const nameAnimal = data.species.find((animalName) => animalName.name === animal.specie);
+  if (Object.keys(animal).length === 1) {
+    return nameAnimal.residents.length;
   }
+
+  const sexAnimal = nameAnimal.residents.filter((animalSex) => animalSex.sex === animal.sex).length;
+  return sexAnimal;
 }
 
 module.exports = countAnimals;
