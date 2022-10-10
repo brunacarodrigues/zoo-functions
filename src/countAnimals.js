@@ -1,14 +1,25 @@
 const { species } = require('../data/zoo_data');
-const data = require('../data/zoo_data');
+
+const qntAnimals = species.reduce((acc, specie) => {
+  acc[specie.name] = specie.residents.length;
+  return acc;
+}, {});
+
+const sexAnimalsCount = (animal) => {
+  const filterAnimals = species
+    .find((specie) => specie.name === animal.specie).residents;
+  const animals = filterAnimals
+    .reduce((acc, sexo) => ((sexo.sex === animal.sex) ? (acc + 1) : (acc)), 0);
+  return animals;
+};
 
 function countAnimals(animal) {
-  if (!animal) {
-    const animalsResidents = {};
-    species.forEach((specie) => { animalsResidents[specie.name] = specie.residents.length; });
-    return animalsResidents;
+  if(animal === undefined) {
+    return qntAnimals;
   }
-  return (species.find((specie) => specie.name === animal)).residents.length;
-}
+  if (Object.values(animal).length === 1) {
+    return sexAnimalsCount;
+  }
+};
 
-console.log(countAnimals('lions'));
 module.exports = countAnimals;
