@@ -61,3 +61,4 @@ describe('Testes da função getOpeningHours', () => {
     expect(testMinutesValue).toThrowError('The minutes must be between 0 and 59');
   });
 });
+//requisito 16
